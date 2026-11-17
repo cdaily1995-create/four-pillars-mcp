@@ -92,6 +92,7 @@ The response contains the four pillar names, stem and branch elements, yin-yang 
 - [Free chart entry](https://bazi-calculator.co/bazi) — the public chart route.
 - [Four Pillars of Destiny guide](https://bazi-calculator.co/four-pillars-of-destiny) — terminology and context.
 - [What is a BaZi chart?](https://bazi-calculator.co/what-is-a-bazi-chart) — beginner-friendly explanation.
+- [True Solar Time MCP Server](https://github.com/cdaily1995-create/true-solar-time-mcp) — the companion standalone time-normalization tool.
 - [MCP specification](https://modelcontextprotocol.io/) — protocol documentation.
 - [MCP TypeScript server SDK](https://www.npmjs.com/package/@modelcontextprotocol/server) — server SDK used by this project.
 - [tyme4ts on npm](https://www.npmjs.com/package/tyme4ts) — calendar and solar-term dependency.
