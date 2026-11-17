@@ -1,8 +1,18 @@
-# Four Pillars MCP
+# Four Pillars MCP Server
 
-`four-pillars-mcp` is a small, read-only Model Context Protocol server for deterministic BaZi (八字) Four Pillars calculation.
+[![MCP server](https://img.shields.io/badge/MCP-server-5f5bd6)](https://modelcontextprotocol.io/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-It accepts an explicit local date, local time, IANA time zone, and geographic longitude. It does **not** geocode addresses, ask for gender, calculate decade luck, store birth data, or generate an interpretation.
+An [MCP](https://modelcontextprotocol.io/) server for deterministic **BaZi (八字) Four Pillars** calculation from a local date, time, IANA timezone, and longitude.
+
+Built for transparent calendrical and software workflows that need year, month, day, and hour pillars without address geocoding, gender-dependent luck cycles, stored birth data, or automated interpretation.
+
+## Why this is useful
+
+- **Coordinates in, no hidden location lookup.** Callers pass the timezone and longitude they already trust.
+- **True solar time included.** Day and hour calculations use local apparent solar time; the response exposes the correction details.
+- **Solar-term aware.** Year and month use astronomical solar-term boundaries.
+- **Facts before interpretation.** The tool returns versioned chart facts, not guaranteed predictions.
 
 ## Tool
 
@@ -29,12 +39,14 @@ The calculation uses:
 
 The result contains the year, month, day, and hour pillars, stem and branch elements, yin-yang labels, Day Master, time correction details, nearby solar-term information, warnings, and provenance.
 
-## Run locally
+## Quick start
 
 ```bash
+git clone https://github.com/cdaily1995-create/four-pillars-mcp.git
+cd four-pillars-mcp
 pnpm install
 pnpm build
-pnpm start
+node dist/server.js
 ```
 
 MCP client configuration:
@@ -49,6 +61,41 @@ MCP client configuration:
   }
 }
 ```
+
+## Example
+
+```text
+calculate_four_pillars {
+  "date": "2005-12-23",
+  "time": "08:37",
+  "timezone": "Asia/Shanghai",
+  "longitude": 121.4737,
+  "latitude": 31.2304
+}
+```
+
+The response contains the four pillar names, stem and branch elements, yin-yang labels, Day Master, true-solar correction details, nearby solar-term information, warnings, and engine/rules versions.
+
+## Input contract
+
+| Field       | Required | Description                                                       |
+| ----------- | -------- | ----------------------------------------------------------------- |
+| `date`      | yes      | Local civil date in `YYYY-MM-DD`.                                 |
+| `time`      | yes      | Local civil time in `HH:mm`.                                      |
+| `timezone`  | yes      | IANA identifier such as `Asia/Shanghai` or `America/Los_Angeles`. |
+| `longitude` | yes      | Decimal degrees, east positive, from `-180` to `180`.             |
+| `latitude`  | no       | Decimal degrees, from `-90` to `90`; retained for traceability.   |
+
+## Links
+
+- [BaZi Calculator](https://bazi-calculator.co/) — the public calculator project for Four Pillars workflows.
+- [Free chart entry](https://bazi-calculator.co/bazi) — the public chart route.
+- [Four Pillars of Destiny guide](https://bazi-calculator.co/four-pillars-of-destiny) — terminology and context.
+- [What is a BaZi chart?](https://bazi-calculator.co/what-is-a-bazi-chart) — beginner-friendly explanation.
+- [MCP specification](https://modelcontextprotocol.io/) — protocol documentation.
+- [MCP TypeScript server SDK](https://www.npmjs.com/package/@modelcontextprotocol/server) — server SDK used by this project.
+- [tyme4ts on npm](https://www.npmjs.com/package/tyme4ts) — calendar and solar-term dependency.
+- [Full link inventory](LINKS.md) and [method references](REFERENCES.md).
 
 ## Search-friendly description
 
