@@ -1,24 +1,58 @@
 {
   "name": "bazi-four-pillars-mcp",
   "version": "0.1.0",
-  "description": "A privacy-friendly MCP server for deterministic BaZi Four Pillars calculation from date, time, timezone, and longitude.",
+  "description": "MCP server for deterministic BaZi (八字) Four Pillars calculation with true solar time and solar terms from date, time, IANA timezone, and longitude.",
   "type": "module",
   "private": false,
   "license": "MIT",
+  "author": "BaZi Calculator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cdaily1995-create/four-pillars-mcp.git"
+    "url": "git+https://github.com/cdaily1995-create/four-pillars-mcp.git"
   },
-  "homepage": "https://github.com/cdaily1995-create/four-pillars-mcp",
+  "homepage": "https://bazi-calculator.co/",
+  "bugs": {
+    "url": "https://github.com/cdaily1995-create/four-pillars-mcp/issues"
+  },
+  "keywords": [
+    "bazi",
+    "ba-zi",
+    "four-pillars",
+    "four-pillars-of-destiny",
+    "bazi-calculator",
+    "true-solar-time",
+    "solar-terms",
+    "chinese-calendar",
+    "chinese-astrology",
+    "model-context-protocol",
+    "mcp-server"
+  ],
+  "bin": {
+    "bazi-four-pillars": "dist/server.js"
+  },
+  "main": "dist/server.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "LINKS.md",
+    "REFERENCES.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "dev": "tsx src/server.ts",
     "test": "node --import tsx --test tests/*.test.ts",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "prepublishOnly": "npm run build && npm test"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.4.0",

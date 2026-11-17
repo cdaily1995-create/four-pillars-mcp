@@ -1,6 +1,7 @@
 # Four Pillars MCP Server
 
 [![MCP server](https://img.shields.io/badge/MCP-server-5f5bd6)](https://modelcontextprotocol.io/)
+[![npm package](https://img.shields.io/npm/v/bazi-four-pillars-mcp.svg)](https://www.npmjs.com/package/bazi-four-pillars-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 An [MCP](https://modelcontextprotocol.io/) server for deterministic **BaZi (八字) Four Pillars** calculation from a local date, time, IANA timezone, and longitude.
@@ -41,6 +42,14 @@ The result contains the year, month, day, and hour pillars, stem and branch elem
 
 ## Quick start
 
+Run directly from npm:
+
+```bash
+npx -y bazi-four-pillars-mcp
+```
+
+Or inspect and build from source:
+
 ```bash
 git clone https://github.com/cdaily1995-create/four-pillars-mcp.git
 cd four-pillars-mcp
@@ -49,20 +58,14 @@ pnpm build
 node dist/server.js
 ```
 
-After the package is published, the npm-based shortcut will be:
-
-```bash
-npx -y bazi-four-pillars-mcp
-```
-
 MCP client configuration:
 
 ```json
 {
   "mcpServers": {
     "four-pillars": {
-      "command": "node",
-      "args": ["/absolute/path/to/four-pillars-mcp/dist/server.js"]
+      "command": "npx",
+      "args": ["-y", "bazi-four-pillars-mcp"]
     }
   }
 }
@@ -99,10 +102,11 @@ The response contains the four pillar names, stem and branch elements, yin-yang 
 - [Four Pillars of Destiny guide](https://bazi-calculator.co/four-pillars-of-destiny) — terminology and context.
 - [What is a BaZi chart?](https://bazi-calculator.co/what-is-a-bazi-chart) — beginner-friendly explanation.
 - [True Solar Time MCP Server](https://github.com/cdaily1995-create/true-solar-time-mcp) — the companion standalone time-normalization tool.
+- [npm package](https://www.npmjs.com/package/bazi-four-pillars-mcp) — installable stdio MCP server.
 - [MCP specification](https://modelcontextprotocol.io/) — protocol documentation.
 - [MCP TypeScript server SDK](https://www.npmjs.com/package/@modelcontextprotocol/server) — server SDK used by this project.
 - [tyme4ts on npm](https://www.npmjs.com/package/tyme4ts) — calendar and solar-term dependency.
-- Planned npm package name: `bazi-four-pillars-mcp` (publication requires an authenticated npm account).
+- [npm installation guide](https://docs.npmjs.com/downloading-and-installing-packages-globally) — package-manager reference.
 - [Full link inventory](LINKS.md) and [method references](REFERENCES.md).
 
 ## Search-friendly description
