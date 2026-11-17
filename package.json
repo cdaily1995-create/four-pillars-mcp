@@ -1,6 +1,7 @@
 {
   "name": "bazi-four-pillars-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.cdaily1995-create/four-pillars",
   "description": "MCP server for deterministic BaZi (八字) Four Pillars calculation with true solar time and solar terms from date, time, IANA timezone, and longitude.",
   "type": "module",
   "private": false,
