@@ -49,6 +49,12 @@ pnpm build
 node dist/server.js
 ```
 
+After the package is published, the npm-based shortcut will be:
+
+```bash
+npx -y bazi-four-pillars-mcp
+```
+
 MCP client configuration:
 
 ```json
@@ -96,6 +102,7 @@ The response contains the four pillar names, stem and branch elements, yin-yang 
 - [MCP specification](https://modelcontextprotocol.io/) — protocol documentation.
 - [MCP TypeScript server SDK](https://www.npmjs.com/package/@modelcontextprotocol/server) — server SDK used by this project.
 - [tyme4ts on npm](https://www.npmjs.com/package/tyme4ts) — calendar and solar-term dependency.
+- Planned npm package name: `bazi-four-pillars-mcp` (publication requires an authenticated npm account).
 - [Full link inventory](LINKS.md) and [method references](REFERENCES.md).
 
 ## Search-friendly description

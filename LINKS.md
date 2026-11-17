@@ -27,6 +27,7 @@ This page keeps the public, stable links associated with the project in one plac
 - [MCP TypeScript server SDK](https://www.npmjs.com/package/@modelcontextprotocol/server)
 - [tyme4ts on npm](https://www.npmjs.com/package/tyme4ts)
 - [ziwei-time on npm](https://www.npmjs.com/package/ziwei-time)
+- Planned package name: `bazi-four-pillars-mcp` (npm link will be added after publication)
 - [Zod on npm](https://www.npmjs.com/package/zod)
 - [Node.js](https://nodejs.org/)
 - [TypeScript](https://www.typescriptlang.org/)

@@ -1,5 +1,5 @@
 {
-  "name": "four-pillars-mcp",
+  "name": "bazi-four-pillars-mcp",
   "version": "0.1.0",
   "description": "A privacy-friendly MCP server for deterministic BaZi Four Pillars calculation from date, time, timezone, and longitude.",
   "type": "module",
