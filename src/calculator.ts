@@ -5,11 +5,11 @@ import {
   YinYang,
   type EarthBranch,
   type HeavenStem,
-} from 'tyme4ts';
-import { trueSolarTime, tzOffsetMinutes } from 'ziwei-time';
+} from "tyme4ts";
+import { trueSolarTime, tzOffsetMinutes } from "ziwei-time";
 
-export const ENGINE_VERSION = 'four-pillars-mcp/0.1.0';
-export const RULES_VERSION = 'ziping-four-pillars/0.1.0';
+export const ENGINE_VERSION = "four-pillars-mcp/0.1.0";
+export const RULES_VERSION = "ziping-four-pillars/0.1.0";
 
 export interface FourPillarsInput {
   date: string;
@@ -25,10 +25,10 @@ interface DateParts {
 }
 
 export interface FourPillar {
-  key: 'year' | 'month' | 'day' | 'hour';
+  key: "year" | "month" | "day" | "hour";
   name: string;
-  stem: { name: string; element: string; yinYang: 'yin' | 'yang' };
-  branch: { name: string; element: string; yinYang: 'yin' | 'yang' };
+  stem: { name: string; element: string; yinYang: "yin" | "yang" };
+  branch: { name: string; element: string; yinYang: "yin" | "yang" };
 }
 
 export interface FourPillarsResult {
@@ -36,9 +36,9 @@ export interface FourPillarsResult {
   rulesVersion: string;
   input: FourPillarsInput;
   method: {
-    yearMonth: 'astronomical_jieqi_at_instant';
-    dayHour: 'local_apparent_solar';
-    dayBoundary: 'zi_start_next_day';
+    yearMonth: "astronomical_jieqi_at_instant";
+    dayHour: "local_apparent_solar";
+    dayBoundary: "zi_start_next_day";
   };
   normalizedTime: {
     civil: DateParts;
@@ -55,7 +55,7 @@ export interface FourPillarsResult {
     warnings: string[];
   };
   pillars: FourPillar[];
-  dayMaster: { name: string; element: string; yinYang: 'yin' | 'yang' };
+  dayMaster: { name: string; element: string; yinYang: "yin" | "yang" };
 }
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -65,7 +65,7 @@ function parseDateTime(date: string, time: string) {
   const dateMatch = DATE_RE.exec(date);
   const timeMatch = TIME_RE.exec(time);
   if (!dateMatch || !timeMatch)
-    throw new Error('date must use YYYY-MM-DD and time must use HH:mm');
+    throw new Error("date must use YYYY-MM-DD and time must use HH:mm");
   const year = Number(dateMatch[1]);
   const month = Number(dateMatch[2]);
   const day = Number(dateMatch[3]);
@@ -79,13 +79,13 @@ function parseDateTime(date: string, time: string) {
     hour > 23 ||
     minute > 59
   ) {
-    throw new Error('date or time is invalid');
+    throw new Error("date or time is invalid");
   }
   return { year, month, day, hour, minute };
 }
 
 function pad2(value: number) {
-  return String(value).padStart(2, '0');
+  return String(value).padStart(2, "0");
 }
 
 function partsFromUtcOffset(utcMs: number, offsetMinutes: number): DateParts {
@@ -97,12 +97,12 @@ function partsFromUtcOffset(utcMs: number, offsetMinutes: number): DateParts {
 }
 
 function calendarDayShift(fromDate: string, toDate: string) {
-  const from = parseDateTime(fromDate, '00:00');
-  const to = parseDateTime(toDate, '00:00');
+  const from = parseDateTime(fromDate, "00:00");
+  const to = parseDateTime(toDate, "00:00");
   return Math.round(
     (Date.UTC(to.year, to.month - 1, to.day) -
       Date.UTC(from.year, from.month - 1, from.day)) /
-      86_400_000
+      86_400_000,
   );
 }
 
@@ -151,8 +151,8 @@ function stemFact(stem: HeavenStem, dayMaster?: HeavenStem) {
   return {
     name: stem.getName(),
     element: stem.getElement().getName(),
-    yinYang: (stem.getYinYang() === YinYang.YANG ? 'yang' : 'yin') as
-      'yin' | 'yang',
+    yinYang: (stem.getYinYang() === YinYang.YANG ? "yang" : "yin") as
+      "yin" | "yang",
     ...(dayMaster ? { tenGod: dayMaster.getTenStar(stem).getName() } : {}),
   };
 }
@@ -161,15 +161,15 @@ function branchFact(branch: EarthBranch) {
   return {
     name: branch.getName(),
     element: branch.getElement().getName(),
-    yinYang: (branch.getYinYang() === YinYang.YANG ? 'yang' : 'yin') as
-      'yin' | 'yang',
+    yinYang: (branch.getYinYang() === YinYang.YANG ? "yang" : "yin") as
+      "yin" | "yang",
   };
 }
 
 function pillarFact(
-  key: FourPillar['key'],
+  key: FourPillar["key"],
   pillar: SixtyCycle,
-  dayMaster: HeavenStem
+  dayMaster: HeavenStem,
 ): FourPillar {
   return {
     key,
@@ -182,12 +182,12 @@ function pillarFact(
 function hourCycleFor(day: SixtyCycle, local: SolarTime) {
   const branch = local.getLunarHour().getSixtyCycle().getEarthBranch();
   return SixtyCycle.fromIndex(
-    day.getHeavenStem().getIndex() * 12 + branch.getIndex()
+    day.getHeavenStem().getIndex() * 12 + branch.getIndex(),
   );
 }
 
 export function calculateFourPillars(
-  input: FourPillarsInput
+  input: FourPillarsInput,
 ): FourPillarsResult {
   parseDateTime(input.date, input.time);
   if (
@@ -195,19 +195,19 @@ export function calculateFourPillars(
     input.longitude < -180 ||
     input.longitude > 180
   )
-    throw new Error('longitude must be between -180 and 180');
+    throw new Error("longitude must be between -180 and 180");
   if (
     input.latitude !== undefined &&
     (!Number.isFinite(input.latitude) ||
       input.latitude < -90 ||
       input.latitude > 90)
   ) {
-    throw new Error('latitude must be between -90 and 90');
+    throw new Error("latitude must be between -90 and 90");
   }
   try {
-    new Intl.DateTimeFormat('en', { timeZone: input.timezone }).format();
+    new Intl.DateTimeFormat("en", { timeZone: input.timezone }).format();
   } catch {
-    throw new Error('timezone must be a valid IANA time zone');
+    throw new Error("timezone must be a valid IANA time zone");
   }
 
   const parts = parseDateTime(input.date, input.time);
@@ -216,15 +216,15 @@ export function calculateFourPillars(
     parts.month - 1,
     parts.day,
     parts.hour,
-    parts.minute
+    parts.minute,
   );
   const localOffset = tzOffsetMinutes(wallClockAsUtc, input.timezone);
   if (localOffset === null)
-    throw new Error('timezone offset could not be resolved');
+    throw new Error("timezone offset could not be resolved");
   const utcMs = wallClockAsUtc - localOffset * 60_000;
   const refinedOffset = tzOffsetMinutes(utcMs, input.timezone);
   if (refinedOffset === null)
-    throw new Error('historical timezone could not be resolved');
+    throw new Error("historical timezone could not be resolved");
   const solar = trueSolarTime({
     date: input.date,
     time: input.time,
@@ -236,11 +236,11 @@ export function calculateFourPillars(
   const totalMinutes = input.longitude * 4 - refinedOffset + solar.eotMinutes;
   const trueSolar = partsFromUtcOffset(
     wallClockAsUtc + Math.round(totalMinutes) * 60_000,
-    0
+    0,
   );
   const standardOffset = standardOffsetMinutes(utcMs, input.timezone);
   const dayShift = calendarDayShift(input.date, trueSolar.date);
-  const warnings = dayShift ? ['true_solar_date_shift'] : [];
+  const warnings = dayShift ? ["true_solar_date_shift"] : [];
 
   const normalizedTime = {
     civil: { date: input.date, time: input.time },
@@ -266,7 +266,7 @@ export function calculateFourPillars(
   });
   const localReference = solarTime(normalizedTime.trueSolar);
   const dayDate = dayPillarReference(normalizedTime.trueSolar);
-  const dayReference = solarTime({ ...dayDate, time: '12:00' });
+  const dayReference = solarTime({ ...dayDate, time: "12:00" });
   const instantChart = instantReference.getLunarHour().getEightChar();
   const dayChart = dayReference.getLunarHour().getEightChar();
   const day = dayChart.getDay();
@@ -274,7 +274,7 @@ export function calculateFourPillars(
     instantChart.getYear(),
     instantChart.getMonth(),
     day,
-    hourCycleFor(day, localReference)
+    hourCycleFor(day, localReference),
   );
   const dayMaster = chart.getDay().getHeavenStem();
 
@@ -283,16 +283,16 @@ export function calculateFourPillars(
     rulesVersion: RULES_VERSION,
     input,
     method: {
-      yearMonth: 'astronomical_jieqi_at_instant',
-      dayHour: 'local_apparent_solar',
-      dayBoundary: 'zi_start_next_day',
+      yearMonth: "astronomical_jieqi_at_instant",
+      dayHour: "local_apparent_solar",
+      dayBoundary: "zi_start_next_day",
     },
     normalizedTime,
     pillars: [
-      pillarFact('year', chart.getYear(), dayMaster),
-      pillarFact('month', chart.getMonth(), dayMaster),
-      pillarFact('day', chart.getDay(), dayMaster),
-      pillarFact('hour', chart.getHour(), dayMaster),
+      pillarFact("year", chart.getYear(), dayMaster),
+      pillarFact("month", chart.getMonth(), dayMaster),
+      pillarFact("day", chart.getDay(), dayMaster),
+      pillarFact("hour", chart.getHour(), dayMaster),
     ],
     dayMaster: stemFact(dayMaster),
   };
