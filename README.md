@@ -3,6 +3,7 @@
 [![MCP server](https://img.shields.io/badge/MCP-server-5f5bd6)](https://modelcontextprotocol.io/)
 [![npm package](https://img.shields.io/npm/v/bazi-four-pillars-mcp.svg)](https://www.npmjs.com/package/bazi-four-pillars-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![AllMCPs Verified](https://allmcps.com/api/badge/bazi-four-pillars-mcp?style=shield)](https://allmcps.com/mcp/bazi-four-pillars-mcp?verify=4823551c-f607-4d63-a67f-ce4a81a7476b)
 
 An [MCP](https://modelcontextprotocol.io/) server for deterministic **BaZi (八字) Four Pillars** calculation from a local date, time, IANA timezone, and longitude.
 
